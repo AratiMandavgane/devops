@@ -1,0 +1,9 @@
+Folder Sync :
+
+/vagrant_data from the created VM is synced with the .vagrant folder (/e/Devops/Vagrant/ubuntu) of ubuntu host machine.
+you can create your own folder sync however you like by using vagrantfile.
+command :  config.vm.synced_folder "./data", "/vagrant_data"
+
+Provisioning (startup scripts)
+By default it happenes at the time of VM creation. If you want to provision after the VM is up then use
+vagrant provision or use --provision.
