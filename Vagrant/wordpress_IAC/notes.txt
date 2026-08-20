@@ -1,0 +1,19 @@
+We can get all the commands from "https://ubuntu.com/tutorials/install-and-configure-wordpress#3-install-wordpress" or we have already saved all the commands in Vagrant\wordpress_manual\notes.txt
+
+1. Created a Vagrant VM to host the WordPress website.
+2. Automated the complete setup using provisioning commands in the Vagrantfile from "https://ubuntu.com/tutorials/install-and-configure-wordpress#3-install-wordpress".
+3. Verified that the WordPress website was successfully accessible in the browser.
+4. Screenshot of the successful deployment is attached in the project folder.
+
+Task 1 – WordPress Deployment with .env
+1. Automated WordPress deployment using Vagrant provisioning with Apache2, PHP and MySQL.
+2. Initially stored database credentials in a `.env` file alongside the Vagrantfile.
+3. Loaded the credentials during provisioning using env variable.
+4. Deployment completed successfully using the automated Vagrant provisioning process.
+
+
+Task 2 – Securing the .env File
+1. Identified that `/vagrant` is a shared folder and should not be used to store sensitive credentials.
+2. Moved the `.env` file outside the Vagrant synced-folder directory.
+3. Updated the Vagrantfile to access the `.env` using its relative path.
+ ****** testing is in progress.

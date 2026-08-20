@@ -1,0 +1,3 @@
+/var/www/html/ is commonly configured as Apache's DocumentRoot — essentially, the web server's "public folder." 
+
+You can see this in the documentation of apache or on the default webpage of apache.
