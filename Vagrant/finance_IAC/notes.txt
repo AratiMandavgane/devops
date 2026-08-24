@@ -1,0 +1,9 @@
+*****Finance page was fetched from "tooplate finance templates"******
+
+1. Created a Vagrant VM to host the finance website.
+2. Used an HTML template from "tooplate finance templates" as the website source.
+3. Added the required provisioning commands inside the Vagrantfile.
+4. During `vagrant up`, the VM was created and automatically provisioned.
+5. Screenshot of the successful deployment is attached in the project folder.
+
+"http://192.168.10.12"

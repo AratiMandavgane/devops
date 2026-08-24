@@ -37,5 +37,21 @@ GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,ALTER
 
 FLUSH PRIVILEGES;
 
+sudo -u www-data cp /srv/www/wordpress/wp-config-sample.php /srv/www/wordpress/wp-config.php
+sudo -u www-data sed -i 's/database_name_here/wordpress/' /srv/www/wordpress/wp-config.php
+sudo -u www-data sed -i 's/username_here/wordpress/' /srv/www/wordpress/wp-config.php
+sudo -u www-data sed -i 's/password_here/sqladmin@123/' /srv/www/wordpress/wp-config.php
+
+sudo -u www-data vim /srv/www/wordpress/wp-config.php
+
+
+define('AUTH_KEY',         '@y[Kl^T5<~HDt~cI.XQ7H-q-Oj,iPz-Yi/}d>Z ]mN<sX~MjA2r]P&N%B&]L64o6');
+define('SECURE_AUTH_KEY',  '??z & +x?J+/4BfcYo@AGK&k?KS4z1.hg|4^plf;5No|; IB,X-5^~@yO(`4+[Hq');
+define('LOGGED_IN_KEY',    'SLa9oddo[Ka= s[uk;n#w<d6%/G~6+m7SQOo|k|w0@Ro1>$wG!f|gHZ{GD`)%%z-');
+define('NONCE_KEY',        'T*TO;.bcX4qGB/0/P/Dlb+UT1V3@I~:RND?6}@S?taCKm>u]EF23I +;ci..7q-}');
+define('AUTH_SALT',        'ap%<7W}C<:JB6ya,ost#/0jlMYM-qY^^@P+k-C{]8LAcnLbCUDH|^~?yt[n!-x$-');
+define('SECURE_AUTH_SALT', 'T+QowE*_{tW]/ owQc)I%D%`4.,+}t`_$kl.<(UrA-zSxm69b:^}j+nX/!3(ml[`');
+define('LOGGED_IN_SALT',   '<r|<x-5+g+7+=G,haej:~6lhImBQn8+HR_D1B;h[i|l/gY`u1Xp#z*l-?tu2|<>/');
+define('NONCE_SALT',       'gH*=)+]8r%dfxJ FfY`s}^v3UElx5jlv%ECN4:f<0Ad\_P)My=`5j}]e5Jhqw)9@E');
 
 ******In this hands on , we created a VM and launched wordpress website from that VM.*******
