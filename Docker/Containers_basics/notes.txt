@@ -1,0 +1,21 @@
+    1 systemctl status docker
+    2  docker run hello-world
+    3  docker ps
+    4  docker ps -a
+    5  docker run --name web01 -p 9080:80 -d nginx
+    6  docker ps -a
+    7  docker images
+    8  ip addr
+    9  docker inspect web01
+   10  mkdir docImages
+   11  cd docImages/
+   12  cd ..
+   13  pwd
+   14  cd docImages/
+   15  vim Dockerfile
+   16  docker build -t testimg
+   17  docker build -t testimg .
+   18  docker run --name web01 -P -d testimg
+   19  docker run -P -d testimg
+   20  docker ps
+   21  history
