@@ -19,3 +19,10 @@
    19  docker run -P -d testimg
    20  docker ps
    21  history
+
+
+   ***********
+   vim docker-compose.yaml
+   docker compose up -d
+   docker compose down
+   docker system prune -a

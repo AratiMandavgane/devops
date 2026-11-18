@@ -1,0 +1,82 @@
+
+# ==========================================
+# Internal Developer Platform
+# Development VM Configuration
+# ==========================================
+
+Vagrant.configure("2") do |config|
+
+  # ----------------------------------------
+  # 1. Operating System
+  # ----------------------------------------
+
+  config.vm.box = "ubuntu/jammy64"
+
+  config.vm.hostname = "idp-dev"
+
+  # Disable automatic box update checks
+  config.vm.box_check_update = false
+
+
+  # ----------------------------------------
+  # 2. VirtualBox Configuration
+  # ----------------------------------------
+
+  config.vm.provider "virtualbox" do |vb|
+
+    vb.name = "idp-dev"
+
+    vb.memory = 5120
+
+    vb.cpus = 2
+
+    vb.gui = false
+
+  end
+
+
+  # ----------------------------------------
+  # 3. Disk Configuration
+  # Requires vagrant-disksize plugin
+  # ----------------------------------------
+
+  config.disksize.size = "60GB"
+
+
+  # ----------------------------------------
+  # 4. Network Configuration
+  # ----------------------------------------
+
+  # NAT is provided by VirtualBox automatically.
+
+  # Host-only network for host-to-VM communication
+  config.vm.network "private_network",
+    ip: "192.168.56.10"
+
+
+  # ----------------------------------------
+  # 5. Shared Folder Configuration
+  # ----------------------------------------
+
+  # Resolve the Git repository root.
+  # Vagrantfile is inside infrastructure/vagrant.
+
+  PROJECT_ROOT = File.expand_path("../..", __dir__)
+
+  # Share complete project repository with Ubuntu
+  config.vm.synced_folder PROJECT_ROOT,
+    "/workspace"
+
+  # Disable Vagrant's default /vagrant folder
+  config.vm.synced_folder ".",
+    "/vagrant",
+    disabled: true
+
+
+  # ----------------------------------------
+  # 6. Boot Configuration
+  # ----------------------------------------
+
+  config.vm.boot_timeout = 600
+
+end
