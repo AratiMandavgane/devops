@@ -1,0 +1,6 @@
+If ssh issue appers 
+1. Log into vagrant through virtualbox 
+3. sudo ss -tlnp | grep ':22'
+
+run below from Vscode 
+ssh -vvv -o ConnectTimeout=10 -i .vagrant/machines/default/virtualbox/private_key -p 2222 vagrant@127.0.0.1

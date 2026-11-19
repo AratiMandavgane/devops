@@ -1,0 +1,29 @@
+1  git clone https://github.com/devopshydclub/emartapp.git
+    2  ls
+    3  cd emartapp/
+    4  ls
+    5  vim docker-compose.yaml 
+    6  docker ps -a
+    7  docker compose up -d
+    8  docker ps -a
+    9  systemctl status docker
+   10  docker compose up -d
+   11  ls
+   12  cd nodeapi/
+   13  ls
+   14  cat dockerfile
+   15  cat Dockerfile
+   16  cd ..
+   17  cd nginx
+   18  ls
+   19  cd ..
+   20  cat Dockerfile
+   21  ls
+   22  cd javaapi/
+   23  ls
+   24  vim Dockerfile  (the old openjdk:8 image reference is no longer available under that name on Docker Hub which we changed to FROM eclipse-temurin:8-jdk AS build_image)
+   25  cd ..
+   26  docker compose up -d
+   27  docker ps -a
+   28  ip addr show
+   29  history

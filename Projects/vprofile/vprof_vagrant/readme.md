@@ -31,9 +31,9 @@ Restartmariadb-server
 Startingthefirewallandallowingthemariadbtoaccessfromportno.3306
 # systemctl start firewalld
 # systemctl enable firewalld
-# firewall-cmd--get-active-zones
-# firewall-cmd--zone=public--add-port=3306/tcp--permanent
-# firewall-cmd--reload
+# firewall-cmd --get-active-zones
+# firewall-cmd --zone=public --add-port=3306/tcp --permanent
+# firewall-cmd --reload
 # systemctl restart mariad
 
 
@@ -62,14 +62,14 @@ SetEPELRepository
 InstallDependencies
 # sudo dnf install wget-y
 # dnf-y install centos-release-rabbitmq-38
-# dnf--enablerepo=centos-rabbitmq-38-y install rabbitmq-server
-# systemctl enable--now rabbitmq-server      (Start and enable combined)
+# dnf --enablerepo=centos-rabbitmq-38-y install rabbitmq-server
+# systemctl enable --now rabbitmq-server      (Start and enable combined)
 
-Setupaccesstousertestandmakeitadmin
+Setup access to user test and make it admin
 # sudo sh-c 'echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config'
 # sudo rabbitmqctl add_user test test
 # sudo rabbitmqctl set_user_tags test administrator
-#rabbitmqctl set_permissions-p / test ".*" ".*" ".*"
+# rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
 # sudo systemctl restart rabbitmq-server
 
 ********* Tomcat setup *************
@@ -82,7 +82,7 @@ Set Repository
 
 Install Dependencies
 # dnf-y install java-17-openjdk java-17-openjdk-devel
-# dnf install git wget-y
+# dnf install git wget -y
 
 Change dir to /tmp
 # cd /tmp/
@@ -138,6 +138,69 @@ Start & Enable service
 Enabling the firewall and allowing port 8080 to access the tomcat
 # systemctl start firewalld
 # systemctl enable firewalld
-# firewall-cmd--get-active-zones
-# firewall-cmd--zone=public--add-port=8080/tcp--permanent
+# firewall-cmd --get-active-zones
+# firewall-cmd --zone=public --add-port=8080/tcp --permanent
 # firewall-cmd--reload
+
+
+***********CODE BUILD & DEPLOY(app01) ********
+
+# cd /tmp/
+# wget https://archive.apache.org/dist/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.zip
+# unzip apache-maven-3.9.9-bin.zip
+# cp-r apache-maven-3.9.9 /usr/local/maven3.9
+# export MAVEN_OPTS="-Xmx512m"   (just fooling around the maven.)
+
+DownloadSourcecode
+# git clone-b local https://github.com/hkhcoder/vprofile-project.git
+
+Updateconfiguration
+# cd vprofile-project
+# vim src/main/resources/application.properties
+# Update file with backend server details
+
+Buildcode
+Runbelowcommandinsidetherepository(vprofile-project)
+# /usr/local/maven3.9/bin/mvn install
+
+Deployartifact
+# systemctl stop tomcat
+# rm-rf /usr/local/tomcat/webapps/ROOT*
+# cp target/vprofile-v2.war /usr/local/tomcat/webapps/ROOT.war
+# systemctl start tomcat
+# chown tomcat.tomcat /usr/local/tomcat/webapps-R
+# systemctl restart tomcat
+
+
+********** Nginx setup *************
+
+UpdateOSwithlatestpatches
+# apt update
+# apt upgrade
+
+Installnginx
+# apt install nginx-y
+
+CreateNginxconf file
+# vi /etc/nginx/sites-available/vproapp
+
+Updatewithbelowcontent
+
+upstream vproapp {
+server app01:8080;
+}
+server {
+listen 80;
+location / {
+proxy_pass http://vproapp;
+}
+}
+
+Remove default nginx conf
+# rm-rf /etc/nginx/sites-enabled/default
+
+Createlinktoactivatewebsite
+# ln-s /etc/nginx/sites-available/vproapp /etc/nginx/sites-enabled/vproapp
+
+RestartNginx
+#systemctl restartngin
