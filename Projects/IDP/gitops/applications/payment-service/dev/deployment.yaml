@@ -1,3 +1,4 @@
+
 apiVersion: apps/v1
 kind: Deployment
 
@@ -20,14 +21,12 @@ spec:
         app: payment-service
 
     spec:
-      tolerations:
-        - key: node-role.kubernetes.io/control-plane
-          operator: Exists
-          effect: NoSchedule
+      imagePullSecrets:
+        - name: ghcr-secret
 
       containers:
         - name: payment-service
-          image: payment-service:1.0.0
+          image: ghcr.io/aratimandavgane/payment-service:1.0.0
           imagePullPolicy: IfNotPresent
 
           ports:
@@ -56,3 +55,4 @@ spec:
               port: 8001
             initialDelaySeconds: 15
             periodSeconds: 20
+
